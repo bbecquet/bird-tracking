@@ -1,13 +1,144 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --textColor: white;
+  --linkColor: rgb(0, 200, 255);
+  --highlightColor: yellow;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  color: var(--textColor);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14px;
+  background-color: black;
+}
+
+a {
+  color: var(--linkColor);
+}
+
+a:hover {
+  color: var(--highlightColor)
+}
+
+#layout {
+  height: 100%;
+}
+
+#mapView {
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+#deck-canvas {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.timeControl {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.timeControl button {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.timeScale {
+  accent-color: var(--linkColor);
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+
+
+
+#panel {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 400px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.credits {
+  font-size: 0.8rem;
+}
+
+.birdControls {
+  display: flex;
+  gap: 1rem;
+}
+
+.speciesToggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border-left: 5px solid transparent;
+  padding: 0.25rem 0.5rem;
+  filter: grayscale(1);
+  opacity: 0.75;
+  transition: 0.2s all ease;
+  margin-bottom: 0.5rem;
+  border-radius: 0 5px 5px 0;
+}
+
+.speciesPic {
+  flex-shrink: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  background-size: cover;
+  box-shadow: inset 0 0 10px black;
+}
+
+.speciesToggle.active {
+  filter: grayscale(0);  
+  opacity: 1;
+  border-left-color: var(--speciesColor);
+}
+
+.speciesToggle:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  filter: grayscale(0);  
+  opacity: 1;
+}
+
+@media screen and (max-width: 600px) {
+  #panel {
+    bottom: 0;
+    top: auto;
+    width: 100%;
+    height: auto
+  }
+
+  .birdControls {
+    display: none;
+  }
 }
