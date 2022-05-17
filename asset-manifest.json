@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/static/css/main.ac46be16.css",
-    "main.js": "/static/js/main.9a3d082a.js",
-    "static/js/636.f6d7a6f0.chunk.js": "/static/js/636.f6d7a6f0.chunk.js",
-    "static/js/787.2a74de7b.chunk.js": "/static/js/787.2a74de7b.chunk.js",
-    "index.html": "/index.html",
-    "main.ac46be16.css.map": "/static/css/main.ac46be16.css.map",
-    "main.9a3d082a.js.map": "/static/js/main.9a3d082a.js.map",
-    "636.f6d7a6f0.chunk.js.map": "/static/js/636.f6d7a6f0.chunk.js.map",
-    "787.2a74de7b.chunk.js.map": "/static/js/787.2a74de7b.chunk.js.map"
+    "main.css": "/bird-tracking/static/css/main.ac46be16.css",
+    "main.js": "/bird-tracking/static/js/main.1b356d1d.js",
+    "static/js/636.f6d7a6f0.chunk.js": "/bird-tracking/static/js/636.f6d7a6f0.chunk.js",
+    "static/js/787.2a74de7b.chunk.js": "/bird-tracking/static/js/787.2a74de7b.chunk.js",
+    "index.html": "/bird-tracking/index.html",
+    "main.ac46be16.css.map": "/bird-tracking/static/css/main.ac46be16.css.map",
+    "main.1b356d1d.js.map": "/bird-tracking/static/js/main.1b356d1d.js.map",
+    "636.f6d7a6f0.chunk.js.map": "/bird-tracking/static/js/636.f6d7a6f0.chunk.js.map",
+    "787.2a74de7b.chunk.js.map": "/bird-tracking/static/js/787.2a74de7b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ac46be16.css",
-    "static/js/main.9a3d082a.js"
+    "static/js/main.1b356d1d.js"
   ]
 }
