@@ -19,7 +19,7 @@ jobs:
           node-version: 16.x
           cache: 'npm'
       - run: npm ci
-      - run: npm run build --if-present
+      - run: CI=false npm run build --if-present
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4.3.3
