@@ -1,0 +1,46 @@
+.timePlayer {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.playPauseButton {
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.playPauseButton:after {
+  box-sizing: border-box;
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-style: solid;
+  transition: 100ms all ease;
+  will-change: border-width;
+}
+
+.playPauseButton.play:after {
+  border-width: 6px 0px 6px 12px;
+  border-color: transparent transparent transparent var(--textColor);
+}
+
+.playPauseButton.pause:after {
+  border-style: double;
+  border-width: 0 0 0 12px;
+  border-color: var(--textColor);
+}
+
+.timeScale {
+  accent-color: var(--linkColor);
+  flex-grow: 1;
+  flex-shrink: 0;
+}
+
+.time {
+  position: absolute;
+  right: 1rem;
+}

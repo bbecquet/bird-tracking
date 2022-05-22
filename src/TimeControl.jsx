@@ -1,8 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
 import { format as formatDate } from 'date-fns'
-
-const ANIMATION_SPEED = 3600 * 3 * 1000 // 1 "step", in seconds
-const LOOP = 3600 * 24 * 365 * 1000
+import { ANIMATION_SPEED, LOOP } from './config'
+import './TimeControl.css'
 
 const TimeControl = ({ time, timeRange, setTime }) => {
   const [isTimeRunning, setIsTimeRunning] = useState(false)
@@ -28,12 +27,14 @@ const TimeControl = ({ time, timeRange, setTime }) => {
   }, [time, timeRange, setTime])
 
   return (
-    <div>
-      {formatDate(new Date(time), 'dd MMMM')}
-      <div className="timeControl">
-        <button onClick={() => setIsTimeRunning(!isTimeRunning)}>
-          {isTimeRunning ? '▮▮' : <span dangerouslySetInnerHTML={{ __html: '&#9654;' }} />}
-        </button>
+    <div className="timeControl">
+      <div className="time">{formatDate(new Date(time), 'dd MMMM')}</div>
+      <div className="timePlayer">
+        <button
+          className={`playPauseButton ${isTimeRunning ? 'pause' : 'play'}`}
+          aria-label={isTimeRunning ? 'Pause' : 'Play'}
+          onClick={() => setIsTimeRunning(!isTimeRunning)}
+        />
         <input
           className="timeScale"
           type="range"

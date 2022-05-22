@@ -2,7 +2,6 @@
   "name": "bird-tracking-map",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://bbecquet.github.io/bird-tracking",
   "dependencies": {
     "date-fns": "^2.28.0",
     "deck.gl": "^8.7.9",

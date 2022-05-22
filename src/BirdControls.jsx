@@ -1,5 +1,7 @@
+import './BirdControls.css'
+
 const SpeciesToggle = ({
-  species: { name, color },
+  species: { name, name_en, color },
   isActive,
   setActive = () => {},
   setHighlighted,
@@ -15,22 +17,20 @@ const SpeciesToggle = ({
       onMouseLeave={() => setHighlighted(null)}
     >
       <div
-        className="speciesPic"
+        className="speciesPic u-mobileHidden"
         style={{
           backgroundImage: `url(imgs/species/${name.replace(' ', '_').toLocaleLowerCase()}.jpg)`,
         }}
       />
-      {name}
+      <div>
+        <div className="speciesCommonName">{name_en}</div>
+        <div className="speciesLatinName u-mobileHidden">{name}</div>
+      </div>
     </div>
   )
 }
 
-const SpeciesToggles = ({
-  speciesList,
-  activeSpeciesList,
-  setActiveSpeciesList,
-  setHighlighted,
-}) => {
+const BirdControls = ({ speciesList, activeSpeciesList, setActiveSpeciesList, setHighlighted }) => {
   const createToggle = species => (
     <SpeciesToggle
       species={species}
@@ -49,15 +49,15 @@ const SpeciesToggles = ({
 
   return (
     <div className="birdControls">
-      <div>
-        <h2>Raptors</h2>
-        <div className="bird-toggles">
+      <div className="birdType">
+        <h2 className="u-mobileHidden">Raptors</h2>
+        <div className="birdToggles">
           {speciesList.filter(s => s.type === 'raptor').map(createToggle)}
         </div>
       </div>
-      <div>
-        <h2>"Long legs"</h2>
-        <div className="bird-toggles">
+      <div className="birdType">
+        <h2 className="u-mobileHidden">"Long legs"</h2>
+        <div className="birdToggles">
           {speciesList.filter(s => s.type !== 'raptor').map(createToggle)}
         </div>
       </div>
@@ -65,4 +65,4 @@ const SpeciesToggles = ({
   )
 }
 
-export default SpeciesToggles
+export default BirdControls

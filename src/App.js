@@ -3,9 +3,7 @@ import MapView from './MapView'
 import { useState, useEffect, useMemo } from 'react'
 import { transformData } from './transformData'
 import { min } from './utils'
-import { speciesList } from './birdSpecies'
-
-const LOOP = 3600 * 24 * 365 * 1000
+import { speciesList, LOOP } from './config'
 
 const App = () => {
   const [time, setTime] = useState(0)

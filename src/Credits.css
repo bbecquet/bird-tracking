@@ -1,0 +1,32 @@
+
+.credits {
+  font-size: 0.8rem;
+}
+
+.creditsWrapper button {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .credits {
+    display: none;
+  }
+
+  .showCredits {
+    opacity: 0.5;
+    font-size: smaller;
+    margin-left: auto;
+  }
+
+  .creditsOpen .credits {
+    display: block;
+  }
+
+  .creditsOpen .showCredits {
+    display: none;
+  }
+  
+  .creditsWrapper button {
+    display: block;
+  }
+}
