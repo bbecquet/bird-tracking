@@ -28,7 +28,7 @@ const TimeControl = ({ time, timeRange, setTime }) => {
 
   return (
     <div className="timeControl">
-      <div className="time">{formatDate(new Date(time), 'dd MMMM')}</div>
+      <div className="time">{formatDate(new Date(time * 1000), 'dd MMMM')}</div>
       <div className="timePlayer">
         <button
           className={`playPauseButton ${isTimeRunning ? 'pause' : 'play'}`}
@@ -38,7 +38,7 @@ const TimeControl = ({ time, timeRange, setTime }) => {
         <input
           className="timeScale"
           type="range"
-          step={3600 * 24 * 1000}
+          step={3600 * 24}
           min={timeRange[0]}
           max={timeRange[1]}
           value={time}

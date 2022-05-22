@@ -1,7 +1,6 @@
 import Panel from './Panel'
 import MapView from './MapView'
 import { useState, useEffect, useMemo } from 'react'
-import { transformData } from './transformData'
 import { min } from './utils'
 import { speciesList, LOOP } from './config'
 
@@ -19,7 +18,6 @@ const App = () => {
     fetch('./birds.geojson')
       .then(response => response.json())
       .then(data => data.features)
-      .then(transformData)
       .then(features => {
         const minTime = min(features.flatMap(f => f.properties.times))
         setTimeRange([minTime, minTime + LOOP])

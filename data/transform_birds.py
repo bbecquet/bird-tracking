@@ -1,5 +1,7 @@
 import csv
 import json
+import datetime
+import dateutil.parser
 
 
 def parseFile(file):
@@ -26,22 +28,23 @@ def groupByBird(observations):
     currentGroup = None
     prevId = -1
     for obs in sortedObs:
+        time = dateutil.parser.isoparse(obs["time"])
         if (
             currentGroup
             and obs["id"] == prevId + 1
             and obs["species"] == currentGroup["species"]
-            and obs["time"] > currentGroup["times"][-1]
-            and obs["time"].split("-")[0] == currentGroup["times"][0].split("-")[0]
+            and time > currentGroup["times"][-1]
+            and time.year == currentGroup["times"][0].year
         ):
             currentGroup["coords"].append(obs["coord"])
-            currentGroup["times"].append(obs["time"])
+            currentGroup["times"].append(time)
         else:
             if currentGroup:
                 groups.append(currentGroup)
             currentGroup = {
                 "id": id,
                 "species": obs["species"],
-                "times": [obs["time"]],
+                "times": [time],
                 "coords": [obs["coord"]],
             }
             id += 1
@@ -50,6 +53,26 @@ def groupByBird(observations):
     if currentGroup:
         groups.append(currentGroup)
     return groups
+
+
+def shiftDates(group, minYear):
+    yearShift = group['times'][0].year - minYear
+    # dirty for 29 febr…
+    group['times'] = list(map(lambda dt: datetime.datetime(
+        dt.year - yearShift, dt.month, dt.day if dt.month != 2 or dt.day < 29 else 28, dt.hour, dt.minute, dt.second), group['times']))
+    return group
+
+
+def normalizeDates(groups):
+    # better ways to do that…
+    allYears = []
+    for g in groups:
+        for dt in g['times']:
+            allYears.append(dt.year)
+
+    minYear = min(allYears)
+
+    return list(map(lambda g: shiftDates(g, minYear), groups))
 
 
 def toFeature(group):
@@ -62,22 +85,19 @@ def toFeature(group):
         },
         "properties": {
             "species": group["species"],
-            "times": group["times"],
+            "times": [int(dt.timestamp()) for dt in group["times"]],
         },
     }
 
 
 def toGeoJson(groups):
     return json.dumps(
-        {"type": "FeatureCollection", "features": [toFeature(g) for g in groups]}
+        {"type": "FeatureCollection", "features": [
+            toFeature(g) for g in groups]}
     )
 
 
 birds = groupByBird(parseFile("clean_bird_migration.csv"))
-print(toGeoJson(birds))
+normalizedDates = normalizeDates(birds)
 
-# seen = set()
-# oneBySpecies = [
-#     seen.add(bird["species"]) or bird for bird in birds if bird["species"] not in seen
-# ]
-# print(toGeoJson(oneBySpecies))
+print(toGeoJson(normalizedDates))

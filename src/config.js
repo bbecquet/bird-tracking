@@ -51,8 +51,8 @@ export const speciesConfig = speciesList.reduce(
   {}
 )
 
-export const ANIMATION_SPEED = 3600 * 2 * 1000 // 1 "step", in seconds
+export const ANIMATION_SPEED = 3600 * 2 // 1 "step", in seconds
 
-export const LOOP = 3600 * 24 * 365 * 1000
+export const LOOP = 3600 * 24 * 365
 
 export const AUTO_PLAY = true
