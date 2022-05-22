@@ -46,6 +46,8 @@ button:hover {
 
 #layout {
   height: 100%;
+  transition: 1s ease filter;
+  will-change: filter;
 }
 
 #map {
@@ -69,6 +71,22 @@ button:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.loading #layout {
+  filter: blur(2px)
+}
+
+#loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
 }
 
 @media screen and (max-width: 600px) {

@@ -15,6 +15,7 @@ const App = () => {
   )
 
   useEffect(() => {
+    document.body.classList.add('loading')
     fetch('./birds.geojson')
       .then(response => response.json())
       .then(data => data.features)
@@ -24,6 +25,7 @@ const App = () => {
         setTimeRange([minTime, minTime + LOOP])
         setTime(minTime)
         setData(features)
+        document.body.classList.remove('loading')
       })
   }, [])
 
@@ -33,17 +35,20 @@ const App = () => {
   )
 
   return (
-    <div id="layout">
-      <MapView time={time} data={filteredData} highlightedSpecies={highlightedSpecies} />
-      <Panel
-        time={time}
-        timeRange={timeRange}
-        setTime={setTime}
-        setHighlightedSpecies={setHighlightedSpecies}
-        activeSpeciesList={activeSpeciesList}
-        setActiveSpeciesList={setActiveSpeciesList}
-      />
-    </div>
+    <>
+      <div id="layout">
+        <MapView time={time} data={filteredData} highlightedSpecies={highlightedSpecies} />
+        <Panel
+          time={time}
+          timeRange={timeRange}
+          setTime={setTime}
+          setHighlightedSpecies={setHighlightedSpecies}
+          activeSpeciesList={activeSpeciesList}
+          setActiveSpeciesList={setActiveSpeciesList}
+        />
+      </div>
+      {data.length === 0 && <div id="loading">Loading…</div>}
+    </>
   )
 }
 
