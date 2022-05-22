@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react'
 import { format as formatDate } from 'date-fns'
-import { ANIMATION_SPEED, LOOP } from './config'
+import { AUTO_PLAY, ANIMATION_SPEED, LOOP } from './config'
 import './TimeControl.css'
 
 const TimeControl = ({ time, timeRange, setTime }) => {
-  const [isTimeRunning, setIsTimeRunning] = useState(false)
+  const [isTimeRunning, setIsTimeRunning] = useState(!!AUTO_PLAY)
   const updateHandle = useRef(null)
 
   useEffect(() => {
