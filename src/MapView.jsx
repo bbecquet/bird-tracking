@@ -14,8 +14,8 @@ const INITIAL_VIEW = {
   zoom: 3,
   minZoom: 0,
   maxZoom: 20,
-  // pitch: 46,
-  // bearing: 22,
+  // pitch: 45,
+  // bearing: 15,
 }
 
 const MapView = ({ time, data, highlightedSpecies }) => {
@@ -25,21 +25,18 @@ const MapView = ({ time, data, highlightedSpecies }) => {
 
   useLayoutEffect(() => {
     if (!initialViewState) {
-      // const mapDimensions = {
-      //   width: mapContainer.current.clientWidth,
-      //   height: mapContainer.current.clientHeight,
-      // }
-      // console.log(mapContainer.current.clientWidth, mapContainer.current.clientHeight)
-      // const { latitude, longitude, zoom } = new WebMercatorViewport(mapDimensions).fitBounds(
-      //   [
-      //     [-19, -37],
-      //     [54, 72],
-      //   ],
-      //   { padding: 0, offset: [-400, 0] }
-      // )
-      // console.log(latitude, longitude, zoom)
-      // setInitialViewState({ ...INITIAL_VIEW, latitude, longitude, zoom })
-      setInitialViewState(INITIAL_VIEW)
+      const mapDimensions = {
+        width: mapContainer.current.clientWidth,
+        height: mapContainer.current.clientHeight,
+      }
+      const { latitude, longitude, zoom } = new WebMercatorViewport(mapDimensions).fitBounds(
+        [
+          [-19, -37],
+          [54, 65],
+        ]
+        // { padding: 0, offset: [-400, 0] }  // Bug in deck.gl? Doesn't work at all and crash on many cases
+      )
+      setInitialViewState({ ...INITIAL_VIEW, latitude, longitude, zoom })
     }
   }, [initialViewState])
 
