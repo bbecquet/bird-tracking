@@ -8,6 +8,9 @@ import { TripsLayer, TileLayer } from '@deck.gl/geo-layers'
 import GL from '@luma.gl/constants'
 import { WebMercatorViewport, _GlobeView as GlobeView } from '@deck.gl/core'
 
+import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker'
+maplibregl.workerClass = maplibreglWorker
+
 const INITIAL_VIEW = {
   longitude: 32.5,
   latitude: 4.5,
