@@ -25,6 +25,10 @@ a {
   color: var(--linkColor);
 }
 
+p {
+  margin-top: 0;
+}
+
 @media (hover: hover) {
   a:hover {
     color: var(--highlightColor)

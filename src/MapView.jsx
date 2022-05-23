@@ -50,7 +50,7 @@ const MapView = ({ time, data, highlightedSpecies }) => {
         trailLength: ANIMATION_SPEED * 200,
         getColor: ({ properties }) => speciesConfig[properties.species].color,
         getPath: d => d.geometry.coordinates,
-        getWidth: d => (d.properties.species === highlightedSpecies ? 10 : 3),
+        getWidth: d => (d.properties.species === highlightedSpecies ? 8 : 2),
         jointRounded: true,
         capRounded: true,
         opacity: 0.75,
