@@ -1,8 +1,8 @@
 import Panel from './Panel'
 import MapView from './MapView'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { min } from './utils'
-import { speciesList, LOOP } from './config'
+import { speciesList, ANIMATION_SPEED, LOOP, AUTO_PLAY } from './config'
 
 const App = () => {
   const [time, setTime] = useState(0)
@@ -12,6 +12,7 @@ const App = () => {
   const [activeSpeciesList, setActiveSpeciesList] = useState(
     speciesList.map(species => species.name)
   )
+  const [isTimeRunning, setIsTimeRunning] = useState(false)
 
   useEffect(() => {
     document.body.classList.add('loading')
@@ -23,9 +24,33 @@ const App = () => {
         setTimeRange([minTime, minTime + LOOP])
         setTime(minTime)
         setData(features)
+        if (AUTO_PLAY) {
+          setIsTimeRunning(true)
+        }
         document.body.classList.remove('loading')
       })
   }, [])
+
+  const updateHandle = useRef(null)
+
+  useEffect(() => {
+    if (isTimeRunning) {
+      if (!updateHandle.current) {
+        updateHandle.current = setInterval(() => {
+          setTime(time => time + ANIMATION_SPEED)
+        }, 50)
+      }
+    } else if (updateHandle.current) {
+      clearInterval(updateHandle.current)
+      updateHandle.current = null
+    }
+  }, [isTimeRunning, setTime])
+
+  useEffect(() => {
+    if (time > timeRange[0] + LOOP) {
+      setTime(timeRange[0])
+    }
+  }, [time, timeRange, setTime])
 
   const filteredData = useMemo(
     () => data.filter(d => activeSpeciesList.includes(d.properties.species)),
@@ -43,6 +68,8 @@ const App = () => {
           setHighlightedSpecies={setHighlightedSpecies}
           activeSpeciesList={activeSpeciesList}
           setActiveSpeciesList={setActiveSpeciesList}
+          isTimeRunning={isTimeRunning}
+          setIsTimeRunning={setIsTimeRunning}
         />
       </div>
       {data.length === 0 && <div id="loading">Loading…</div>}

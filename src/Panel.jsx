@@ -10,11 +10,19 @@ const Panel = ({
   setHighlightedSpecies,
   setActiveSpeciesList,
   activeSpeciesList,
+  isTimeRunning,
+  setIsTimeRunning,
 }) => {
   return (
     <div id="panel">
       {/* <h1>Bird tracking</h1> */}
-      <TimeControl time={time} timeRange={timeRange} setTime={setTime} />
+      <TimeControl
+        time={time}
+        timeRange={timeRange}
+        setTime={setTime}
+        isTimeRunning={isTimeRunning}
+        setIsTimeRunning={setIsTimeRunning}
+      />
       <BirdControls
         speciesList={speciesList}
         setHighlighted={setHighlightedSpecies}
