@@ -1,6 +1,8 @@
 
 .credits {
   font-size: 0.8rem;
+  opacity: 0.5;
+  text-align: right;
 }
 
 .creditsWrapper button {
@@ -10,6 +12,13 @@
 @media screen and (max-width: 600px) {
   .credits {
     display: none;
+    text-align: left;
+  }
+
+  .creditsHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .showCredits {

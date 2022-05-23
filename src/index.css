@@ -71,12 +71,6 @@ button:hover {
   flex-direction: column;
 }
 
-.u-flex {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .loading #layout {
   filter: blur(2px)
 }

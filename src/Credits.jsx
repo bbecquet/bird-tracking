@@ -14,7 +14,7 @@ const Credits = () => {
         Credits
       </button>
       <div className="credits">
-        <div className="u-flex">
+        <div className="creditsHeader">
           <h2>Credits</h2>
           <button className="closeCredits" type="button" onClick={() => setCreditsOpen(false)}>
             Close
