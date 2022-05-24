@@ -13,6 +13,7 @@ const App = () => {
     speciesList.map(species => species.name)
   )
   const [isTimeRunning, setIsTimeRunning] = useState(false)
+  const updateHandle = useRef(null)
 
   useEffect(() => {
     document.body.classList.add('loading')
@@ -31,7 +32,18 @@ const App = () => {
       })
   }, [])
 
-  const updateHandle = useRef(null)
+  useEffect(() => {
+    const pauseOnSpace = e => {
+      if (e.key === ' ' && data.length !== 0) {
+        setIsTimeRunning(prev => !prev)
+      }
+    }
+    document.body.addEventListener('keypress', pauseOnSpace)
+
+    return () => {
+      document.body.removeEventListener('keypress', pauseOnSpace)
+    }
+  }, [data])
 
   useEffect(() => {
     if (isTimeRunning) {
