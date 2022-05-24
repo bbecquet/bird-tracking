@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'react'
 import DeckGL from '@deck.gl/react'
 import Map from 'react-map-gl'
-import maplibregl from 'maplibre-gl'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import maplibregl from '!maplibre-gl'
 import { ANIMATION_SPEED, speciesConfig } from './config'
 import { BitmapLayer } from '@deck.gl/layers'
 import { TripsLayer, TileLayer } from '@deck.gl/geo-layers'
