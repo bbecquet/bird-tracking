@@ -1,7 +1,7 @@
 :root {
   --textColor: white;
-  --linkColor: rgb(0, 200, 255);
-  --highlightColor: yellow;
+  --linkColor: white;
+  --highlightColor: rgb(0, 200, 255);
   --activeGrayColor: rgba(255, 255, 255, 0.20)
 }
 
