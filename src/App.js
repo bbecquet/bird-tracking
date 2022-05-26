@@ -1,8 +1,16 @@
 import Panel from './Panel'
 import MapView from './MapView'
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { min } from './utils'
-import { speciesList, ANIMATION_SPEED, LOOP, AUTO_PLAY } from './config'
+import { speciesList, ANIMATION_SPEED, AUTO_PLAY } from './config'
+
+const getTimeRange = features => {
+  return features
+    .flatMap(f => f.properties.times)
+    .reduce(
+      ([min, max], v) => [Math.min(min, v), Math.max(max, v)],
+      [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
+    )
+}
 
 const App = () => {
   const [time, setTime] = useState(0)
@@ -21,8 +29,8 @@ const App = () => {
       .then(response => response.json())
       .then(data => data.features)
       .then(features => {
-        const minTime = min(features.flatMap(f => f.properties.times))
-        setTimeRange([minTime, minTime + LOOP])
+        const [minTime, maxTime] = getTimeRange(features)
+        setTimeRange([minTime, maxTime])
         setTime(minTime)
         setData(features)
         if (AUTO_PLAY) {
@@ -59,7 +67,7 @@ const App = () => {
   }, [isTimeRunning, setTime])
 
   useEffect(() => {
-    if (time > timeRange[0] + LOOP) {
+    if (time > timeRange[1]) {
       setTime(timeRange[0])
     }
   }, [time, timeRange, setTime])
