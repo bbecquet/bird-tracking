@@ -37,7 +37,11 @@ const Credits = () => {
         </p>
         <p>
           Built with <a href="https://deck.gl/">deck.gl</a> and{' '}
-          <a href="https://maplibre.org/projects/maplibre-gl-js/">MapLibre-GL</a>
+          <a href="https://maplibre.org/projects/maplibre-gl-js/">MapLibre-GL</a>.{' '}
+          <a href="https://github.com/bbecquet/bird-tracking">Source code</a>
+        </p>
+        <p>
+          Author: <a href="https://bbecquet.net/">Benjamin Becquet</a>.
         </p>
       </div>
     </div>
