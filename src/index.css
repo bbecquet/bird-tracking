@@ -29,6 +29,14 @@ p {
   margin-top: 0;
 }
 
+h1, h2 {
+  font-weight: normal;
+}
+
+input {
+  accent-color: var(--highlightColor);
+}
+
 @media (hover: hover) {
   a:hover {
     color: var(--highlightColor)
@@ -61,7 +69,7 @@ button:hover {
 
 #panel {
   background-color: rgba(0, 0, 0, 0.65);
-  width: 400px;
+  width: 450px;
   position: absolute;
   right: 0;
   top: 0;
@@ -69,6 +77,7 @@ button:hover {
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
 }
 
 .loading #layout {
@@ -106,6 +115,11 @@ button:hover {
 @media screen and (max-width: 600px) {
   body {
     font-size: 12px;
+  }
+
+  h1 {
+    position: absolute;
+    top: 0;
   }
 
   #panel {

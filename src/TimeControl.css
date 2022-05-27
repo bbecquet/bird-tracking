@@ -1,3 +1,7 @@
+.timeControl {
+  position: relative;
+}
+
 .timePlayer {
   display: flex;
   gap: 0.5rem;
@@ -11,6 +15,12 @@
   height: 2.5rem;
   align-items: center;
   justify-content: center;
+}
+
+@media (hover: hover) {
+  .playPauseButton:hover {
+    background-color: var(--highlightColor);
+  }
 }
 
 .playPauseButton:after {
@@ -36,15 +46,18 @@
 }
 
 .timeScale {
-  accent-color: var(--highlightColor);
   flex-grow: 1;
   flex-shrink: 0;
 }
 
+.timeControl input[type="checkbox"] {
+  margin: 1rem 0.5rem 0 0;
+}
+
 .time {
   position: absolute;
-  right: 1rem;
-  top: 1.5rem;
+  right: 0.5rem;
+  top: 0.5rem;
   font-size: 1rem;
   font-weight: bold;
 }

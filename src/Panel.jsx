@@ -12,16 +12,20 @@ const Panel = ({
   activeSpeciesList,
   isTimeRunning,
   setIsTimeRunning,
+  sameYear,
+  setSameYear,
 }) => {
   return (
     <div id="panel">
-      {/* <h1>Bird tracking</h1> */}
+      <h1>Flying paths of tracked birds</h1>
       <TimeControl
         time={time}
         timeRange={timeRange}
         setTime={setTime}
         isTimeRunning={isTimeRunning}
         setIsTimeRunning={setIsTimeRunning}
+        sameYear={sameYear}
+        setSameYear={setSameYear}
       />
       <BirdControls
         speciesList={speciesList}

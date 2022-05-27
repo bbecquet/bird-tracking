@@ -8,6 +8,7 @@ import { BitmapLayer } from '@deck.gl/layers'
 import { TripsLayer, TileLayer } from '@deck.gl/geo-layers'
 import GL from '@luma.gl/constants'
 import { WebMercatorViewport, _GlobeView as GlobeView } from '@deck.gl/core'
+import { tsToDate } from './times'
 
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker'
 maplibregl.workerClass = maplibreglWorker
@@ -22,10 +23,11 @@ const INITIAL_VIEW = {
   // bearing: 15,
 }
 
-const MapView = ({ time, data, highlightedSpecies }) => {
+const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
   const [tripLayer, setTripLayer] = useState(undefined)
   const [initialViewState, setInitialViewState] = useState(null)
   const mapContainer = useRef(null)
+  const minYear = new Date(minTime * 1000).getFullYear()
 
   useLayoutEffect(() => {
     if (!initialViewState) {
@@ -50,7 +52,17 @@ const MapView = ({ time, data, highlightedSpecies }) => {
         id: 'birds',
         data,
         currentTime: time,
-        getTimestamps: d => d.properties.times,
+        getTimestamps: d => {
+          if (!sameYear || !minYear) {
+            return d.properties.times
+          }
+          // transform times so they are all considered in the same year
+          const timeStampShift =
+            (new Date(tsToDate(d.properties.times[0]).getFullYear(), 0, 1) -
+              new Date(minYear, 0, 1)) /
+            1000
+          return d.properties.times.map(t => t - timeStampShift)
+        },
         trailLength: ANIMATION_SPEED * 200,
         getColor: ({ properties }) => speciesConfig[properties.species].color,
         getPath: d => d.geometry.coordinates,
@@ -66,10 +78,11 @@ const MapView = ({ time, data, highlightedSpecies }) => {
         },
         updateTriggers: {
           getWidth: highlightedSpecies,
+          getTimestamps: sameYear,
         },
       })
     )
-  }, [data, time, highlightedSpecies])
+  }, [data, time, sameYear, minYear, highlightedSpecies])
 
   return (
     <div id="map" ref={mapContainer}>

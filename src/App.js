@@ -1,16 +1,8 @@
 import Panel from './Panel'
 import MapView from './MapView'
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { speciesList, ANIMATION_SPEED, AUTO_PLAY } from './config'
-
-const getTimeRange = features => {
-  return features
-    .flatMap(f => f.properties.times)
-    .reduce(
-      ([min, max], v) => [Math.min(min, v), Math.max(max, v)],
-      [Number.MAX_SAFE_INTEGER, Number.MIN_SAFE_INTEGER]
-    )
-}
+import { speciesList, ANIMATION_SPEED, AUTO_PLAY, INITIAL_SAME_YEAR } from './config'
+import { getTimeRange } from './times'
 
 const App = () => {
   const [time, setTime] = useState(0)
@@ -21,6 +13,7 @@ const App = () => {
     speciesList.map(species => species.name)
   )
   const [isTimeRunning, setIsTimeRunning] = useState(false)
+  const [sameYear, setSameYear] = useState(INITIAL_SAME_YEAR)
   const updateHandle = useRef(null)
 
   useEffect(() => {
@@ -29,16 +22,21 @@ const App = () => {
       .then(response => response.json())
       .then(data => data.features)
       .then(features => {
-        const [minTime, maxTime] = getTimeRange(features)
-        setTimeRange([minTime, maxTime])
-        setTime(minTime)
         setData(features)
-        if (AUTO_PLAY) {
-          setIsTimeRunning(true)
-        }
         document.body.classList.remove('loading')
       })
   }, [])
+
+  useEffect(() => {
+    if (data.length > 0) {
+      const [minTime, maxTime] = getTimeRange(data, sameYear)
+      setTimeRange([minTime, maxTime])
+      setTime(minTime)
+      if (AUTO_PLAY) {
+        setIsTimeRunning(true)
+      }
+    }
+  }, [sameYear, data])
 
   useEffect(() => {
     const pauseOnSpace = e => {
@@ -80,7 +78,13 @@ const App = () => {
   return (
     <>
       <div id="layout">
-        <MapView time={time} data={filteredData} highlightedSpecies={highlightedSpecies} />
+        <MapView
+          time={time}
+          minTime={timeRange[0]}
+          sameYear={sameYear}
+          data={filteredData}
+          highlightedSpecies={highlightedSpecies}
+        />
         <Panel
           time={time}
           timeRange={timeRange}
@@ -90,9 +94,11 @@ const App = () => {
           setActiveSpeciesList={setActiveSpeciesList}
           isTimeRunning={isTimeRunning}
           setIsTimeRunning={setIsTimeRunning}
+          sameYear={sameYear}
+          setSameYear={setSameYear}
         />
       </div>
-      {data.length === 0 && <div id="loading">Loading…</div>}
+      {data.length === 0 && <div id="loading">Please wait for data to be fetched…</div>}
     </>
   )
 }

@@ -55,26 +55,6 @@ def groupByBird(observations):
     return groups
 
 
-def shiftDates(group, minYear):
-    yearShift = group['times'][0].year - minYear
-    # dirty for 29 febr…
-    group['times'] = list(map(lambda dt: datetime.datetime(
-        dt.year - yearShift, dt.month, dt.day if dt.month != 2 or dt.day < 29 else 28, dt.hour, dt.minute, dt.second), group['times']))
-    return group
-
-
-def normalizeDates(groups):
-    # better ways to do that…
-    allYears = []
-    for g in groups:
-        for dt in g['times']:
-            allYears.append(dt.year)
-
-    minYear = min(allYears)
-
-    return list(map(lambda g: shiftDates(g, minYear), groups))
-
-
 def toFeature(group):
     return {
         "id": group["id"],
@@ -98,6 +78,5 @@ def toGeoJson(groups):
 
 
 birds = groupByBird(parseFile("clean_bird_migration.csv"))
-normalizedDates = normalizeDates(birds)
 
-print(toGeoJson(normalizedDates))
+print(toGeoJson(birds))
