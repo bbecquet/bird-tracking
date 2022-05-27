@@ -17,12 +17,6 @@
   justify-content: center;
 }
 
-@media (hover: hover) {
-  .playPauseButton:hover {
-    background-color: var(--highlightColor);
-  }
-}
-
 .playPauseButton:after {
   box-sizing: border-box;
   content: '';
@@ -51,7 +45,7 @@
 }
 
 .timeControl input[type="checkbox"] {
-  margin: 1rem 0.5rem 0 0;
+  margin: 0.5rem 0.5rem 0 0;
 }
 
 .time {

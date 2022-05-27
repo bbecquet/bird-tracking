@@ -14,6 +14,8 @@ const Panel = ({
   setIsTimeRunning,
   sameYear,
   setSameYear,
+  speed,
+  setSpeed,
 }) => {
   return (
     <div id="panel">
@@ -26,6 +28,8 @@ const Panel = ({
         setIsTimeRunning={setIsTimeRunning}
         sameYear={sameYear}
         setSameYear={setSameYear}
+        speed={speed}
+        setSpeed={setSpeed}
       />
       <BirdControls
         speciesList={speciesList}

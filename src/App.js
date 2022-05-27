@@ -14,6 +14,7 @@ const App = () => {
   )
   const [isTimeRunning, setIsTimeRunning] = useState(false)
   const [sameYear, setSameYear] = useState(INITIAL_SAME_YEAR)
+  const [speed, setSpeed] = useState(3)
   const updateHandle = useRef(null)
 
   useEffect(() => {
@@ -52,17 +53,19 @@ const App = () => {
   }, [data])
 
   useEffect(() => {
-    if (isTimeRunning) {
-      if (!updateHandle.current) {
-        updateHandle.current = setInterval(() => {
-          setTime(time => time + ANIMATION_SPEED)
-        }, 50)
-      }
-    } else if (updateHandle.current) {
-      clearInterval(updateHandle.current)
-      updateHandle.current = null
+    if (isTimeRunning && !updateHandle.current) {
+      updateHandle.current = setInterval(() => {
+        setTime(time => time + ANIMATION_SPEED * speed)
+      }, 50)
     }
-  }, [isTimeRunning, setTime])
+
+    return () => {
+      if (updateHandle.current) {
+        clearInterval(updateHandle.current)
+        updateHandle.current = null
+      }
+    }
+  }, [isTimeRunning, setTime, speed])
 
   useEffect(() => {
     if (time > timeRange[1]) {
@@ -96,6 +99,8 @@ const App = () => {
           setIsTimeRunning={setIsTimeRunning}
           sameYear={sameYear}
           setSameYear={setSameYear}
+          speed={speed}
+          setSpeed={setSpeed}
         />
       </div>
       {data.length === 0 && <div id="loading">Please wait for data to be fetched…</div>}

@@ -9,6 +9,8 @@ const TimeControl = ({
   setTime,
   sameYear,
   setSameYear,
+  speed,
+  setSpeed,
 }) => {
   return (
     <div className="timeControl">
@@ -31,10 +33,15 @@ const TimeControl = ({
           onChange={e => setTime(Number(e.target.value))}
         />
       </div>
-      <label className="sameYear">
-        <input type="checkbox" checked={sameYear} onChange={() => setSameYear(!sameYear)} />
-        Merge observations in a single year
-      </label>
+      <div className="u-flex">
+        <label className="sameYear">
+          <input type="checkbox" checked={sameYear} onChange={() => setSameYear(!sameYear)} />
+          Merge observations in a single year
+        </label>
+        <button onClick={() => setSpeed(speed >= 5 ? 1 : speed + 2)}>
+          Speed <b>x{speed}</b>
+        </button>
+      </div>
     </div>
   )
 }
