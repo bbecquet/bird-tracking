@@ -112,16 +112,17 @@ button:hover {
   margin-right: 0.5rem;
 }
 
+@media screen and (min-width: 601px) {
+  .u-desktopHidden {
+    display: none;
+  }
+}
+
 @media screen and (max-width: 600px) {
   body {
     font-size: 12px;
   }
-
-  h1 {
-    position: absolute;
-    top: 0;
-  }
-
+  
   #panel {
     background: linear-gradient(transparent, rgba(0, 0, 0, 1));
     bottom: 0;

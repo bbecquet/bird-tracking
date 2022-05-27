@@ -17,7 +17,7 @@ const Panel = ({
 }) => {
   return (
     <div id="panel">
-      <h1>Flying paths of tracked birds</h1>
+      <h1 className="u-mobileHidden">Flying paths of some birds</h1>
       <TimeControl
         time={time}
         timeRange={timeRange}

@@ -10,16 +10,19 @@ const Credits = () => {
 
   return (
     <div className="creditsWrapper">
-      <button className="showCredits" type="button" onClick={() => setCreditsOpen(!creditsOpen)}>
-        Credits
-      </button>
+      <div className="creditsHeader u-desktopHidden">
+        <h1>Flying paths of some birds</h1>
+
+        <button
+          className="toggleCredits"
+          type="button"
+          onClick={() => setCreditsOpen(!creditsOpen)}
+        >
+          {creditsOpen ? 'Close' : '?'}
+        </button>
+      </div>
       <div className="credits">
-        <div className="creditsHeader">
-          <h2>Credits</h2>
-          <button className="closeCredits" type="button" onClick={() => setCreditsOpen(false)}>
-            Close
-          </button>
-        </div>
+        <h2 className="u-mobileHidden">Credits</h2>
         <p>
           Data source: <a href="https://gbif.org">GBIF.org</a>: BirdMap Data -{' '}
           <a href="https://www.gbif.org/dataset/712dba38-74cc-4704-87c0-63d1bf8484bc">
