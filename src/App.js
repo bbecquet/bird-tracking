@@ -41,7 +41,11 @@ const App = () => {
 
   useEffect(() => {
     const pauseOnSpace = e => {
-      if (e.key === ' ' && data.length !== 0) {
+      if (
+        e.key === ' ' &&
+        data.length !== 0 &&
+        !['BUTTON', 'A', 'INPUT'].includes(e.target?.tagName)
+      ) {
         setIsTimeRunning(prev => !prev)
       }
     }
