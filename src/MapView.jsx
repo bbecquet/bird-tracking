@@ -60,7 +60,7 @@ const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
             1000
           return d.properties.times.map(t => t - timeStampShift)
         },
-        trailLength: ANIMATION_SPEED * 200,
+        trailLength: ANIMATION_SPEED * 150,
         getColor: ({ properties }) => speciesConfig[properties.species].color,
         getPath: d => d.geometry.coordinates,
         getWidth: d => (d.properties.species === highlightedSpecies ? 8 : 2),
