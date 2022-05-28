@@ -31,7 +31,7 @@ const Credits = () => {
           </a>{' '}
           (<a href="https://doi.org/10.15468/dl.fufxjs">09 May 2022</a>)
         </p>
-        <p>
+        <p className="u-mobileHidden">
           Bird pictures: <a href="https://commons.wikimedia.org">WikiMedia Commons</a>
         </p>
         <p>
