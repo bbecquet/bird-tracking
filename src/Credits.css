@@ -5,7 +5,7 @@
   text-align: right;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .credits {
     display: none;
     text-align: left;

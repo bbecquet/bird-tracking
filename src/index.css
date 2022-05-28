@@ -125,13 +125,13 @@ button {
   margin-right: 0.5rem;
 }
 
-@media screen and (min-width: 601px) {
+@media screen and (min-width: 801px) {
   .u-desktopHidden {
     display: none;
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   body {
     font-size: 12px;
   }
