@@ -54,3 +54,11 @@
   top: 0.5rem;
   font-size: 1rem;
 }
+
+.speedIndicator {
+  margin-left: 0.5rem;
+  height: 1rem;
+  width: 2rem;
+  background: black linear-gradient(to right, var(--highlightColor) var(--level), transparent var(--level), transparent 100%);
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}

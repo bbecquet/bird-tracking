@@ -38,9 +38,13 @@ const TimeControl = ({
           <input type="checkbox" checked={sameYear} onChange={() => setSameYear(!sameYear)} />
           Merge observations in a single year
         </label>
-        <button onClick={() => setSpeed(speed >= 5 ? 1 : speed + 2)}>
-          Speed <b>x{speed}</b>
-        </button>
+        <div className="u-flex">
+          <button onClick={() => setSpeed(speed >= 5 ? 1 : speed + 2)}>Speed</button>
+          <div
+            className="speedIndicator"
+            style={{ '--level': Math.floor((speed * 100) / 5) + '%' }}
+          />
+        </div>
       </div>
     </div>
   )
