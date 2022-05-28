@@ -19,6 +19,17 @@
   border-radius: 0 5px 5px 0;
 }
 
+.speciesToggle input[type=checkbox] {
+  opacity: 0;
+  position: absolute;
+}
+
+.speciesToggle:focus-within {
+  background-color: var(--activeGrayColor);
+  filter: grayscale(0);  
+  opacity: 1;
+}
+
 .speciesToggle.active {
   filter: grayscale(0);  
   opacity: 1;

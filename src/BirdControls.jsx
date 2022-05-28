@@ -7,15 +7,19 @@ const SpeciesToggle = ({
   setHighlighted,
 }) => {
   return (
-    <div
+    <label
       style={{ '--speciesColor': `rgb(${color})` }}
       className={`speciesToggle ${isActive ? 'active' : ''}`}
-      onClick={() => {
-        setActive(!isActive)
-      }}
       onMouseEnter={() => setHighlighted(name)}
       onMouseLeave={() => setHighlighted(null)}
     >
+      <input
+        type="checkbox"
+        checked={isActive}
+        onChange={() => {
+          setActive(!isActive)
+        }}
+      />
       <div
         className="speciesPic u-mobileHidden"
         style={{
@@ -26,7 +30,7 @@ const SpeciesToggle = ({
         <div className="speciesCommonName">{name_en}</div>
         <div className="speciesLatinName u-mobileHidden">{name}</div>
       </div>
-    </div>
+    </label>
   )
 }
 
