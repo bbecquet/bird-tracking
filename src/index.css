@@ -90,7 +90,7 @@ button {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .loading #layout {
