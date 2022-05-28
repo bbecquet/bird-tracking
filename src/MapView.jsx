@@ -4,10 +4,9 @@ import Map from 'react-map-gl'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import maplibregl from '!maplibre-gl'
 import { ANIMATION_SPEED, speciesConfig } from './config'
-import { BitmapLayer } from '@deck.gl/layers'
-import { TripsLayer, TileLayer } from '@deck.gl/geo-layers'
+import { TripsLayer } from '@deck.gl/geo-layers'
 import GL from '@luma.gl/constants'
-import { WebMercatorViewport, _GlobeView as GlobeView } from '@deck.gl/core'
+import { WebMercatorViewport } from '@deck.gl/core'
 import { tsToDate } from './times'
 
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker'
@@ -19,8 +18,6 @@ const INITIAL_VIEW = {
   zoom: 3,
   minZoom: 0,
   maxZoom: 20,
-  // pitch: 45,
-  // bearing: 15,
 }
 
 const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
@@ -40,7 +37,7 @@ const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
           [-19, -37],
           [54, 65],
         ]
-        // { padding: 0, offset: [-400, 0] }  // Bug in deck.gl? Doesn't work at all and crash on many cases
+        // { padding: 0, offset: [-400, 0] }  // Bug in deck.gl? Doesn't work at all and crashes on many cases
       )
       setInitialViewState({ ...INITIAL_VIEW, latitude, longitude, zoom })
     }
@@ -90,34 +87,7 @@ const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
         <DeckGL
           initialViewState={initialViewState}
           controller={true}
-          layers={
-            tripLayer
-              ? [
-                  // new TileLayer({
-                  //   // https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#Tile_servers
-                  //   data: 'https://c.tile.openstreetmap.org/{z}/{x}/{y}.png',
-
-                  //   minZoom: 0,
-                  //   maxZoom: 19,
-                  //   tileSize: 256,
-
-                  //   renderSubLayers: props => {
-                  //     const {
-                  //       bbox: { west, south, east, north },
-                  //     } = props.tile
-
-                  //     return new BitmapLayer(props, {
-                  //       data: null,
-                  //       image: props.data,
-                  //       bounds: [west, south, east, north],
-                  //     })
-                  //   },
-                  // }),
-                  tripLayer,
-                ]
-              : []
-          }
-          // views={new GlobeView({ resolution: 10 })}
+          layers={tripLayer ? [tripLayer] : []}
         >
           <Map
             mapLib={maplibregl}
