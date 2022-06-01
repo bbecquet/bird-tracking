@@ -3,6 +3,7 @@ import MapView from './MapView'
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { speciesList, ANIMATION_SPEED, AUTO_PLAY, INITIAL_SAME_YEAR } from './config'
 import { getTimeRange } from './times'
+import { usePageVisibility } from './usePageVisibility'
 
 const App = () => {
   const [time, setTime] = useState(0)
@@ -16,6 +17,7 @@ const App = () => {
   const [sameYear, setSameYear] = useState(INITIAL_SAME_YEAR)
   const [speed, setSpeed] = useState(3)
   const updateHandle = useRef(null)
+  const isPageVisible = usePageVisibility()
 
   useEffect(() => {
     document.body.classList.add('loading')
@@ -57,7 +59,7 @@ const App = () => {
   }, [data])
 
   useEffect(() => {
-    if (isTimeRunning && !updateHandle.current) {
+    if (isPageVisible && isTimeRunning && !updateHandle.current) {
       updateHandle.current = setInterval(() => {
         setTime(time => time + ANIMATION_SPEED * speed)
       }, 50)
@@ -69,7 +71,7 @@ const App = () => {
         updateHandle.current = null
       }
     }
-  }, [isTimeRunning, setTime, speed])
+  }, [isTimeRunning, setTime, speed, isPageVisible])
 
   useEffect(() => {
     if (time > timeRange[1]) {
