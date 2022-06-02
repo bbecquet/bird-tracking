@@ -1,4 +1,6 @@
 import './BirdControls.css'
+import { speciesList } from './config'
+import { useSetting } from './Settings'
 
 const SpeciesToggle = ({
   species: { name, name_en, color },
@@ -34,7 +36,10 @@ const SpeciesToggle = ({
   )
 }
 
-const BirdControls = ({ speciesList, activeSpeciesList, setActiveSpeciesList, setHighlighted }) => {
+const BirdControls = () => {
+  const [, setHighlighted] = useSetting('highlightedSpecies')
+  const [activeSpeciesList, setActiveSpeciesList] = useSetting('activeSpeciesList', [])
+
   const createToggle = species => (
     <SpeciesToggle
       species={species}

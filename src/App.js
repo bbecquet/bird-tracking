@@ -1,22 +1,23 @@
 import Panel from './Panel'
 import MapView from './MapView'
 import { useState, useEffect, useMemo, useRef } from 'react'
-import { speciesList, ANIMATION_SPEED, AUTO_PLAY, INITIAL_SAME_YEAR } from './config'
+import { ANIMATION_SPEED, AUTO_PLAY } from './config'
 import { getTimeRange } from './times'
 import { usePageVisibility } from './usePageVisibility'
+import { useSetting } from './Settings'
 
 const App = () => {
-  const [time, setTime] = useState(0)
-  const [timeRange, setTimeRange] = useState([])
   const [data, setData] = useState([])
-  const [highlightedSpecies, setHighlightedSpecies] = useState(null)
-  const [activeSpeciesList, setActiveSpeciesList] = useState(
-    speciesList.map(species => species.name)
-  )
+  const [timeRange, setTimeRange] = useState([])
+  const [time, setTime] = useState(0)
   const [isTimeRunning, setIsTimeRunning] = useState(false)
-  const [sameYear, setSameYear] = useState(INITIAL_SAME_YEAR)
-  const [speed, setSpeed] = useState(3)
   const updateHandle = useRef(null)
+
+  const [highlightedSpecies] = useSetting('highlightedSpecies')
+  const [activeSpeciesList] = useSetting('activeSpeciesList', [])
+  const [sameYear] = useSetting('sameYear')
+  const [speed] = useSetting('speed')
+
   const isPageVisible = usePageVisibility()
 
   useEffect(() => {
@@ -98,15 +99,8 @@ const App = () => {
           time={time}
           timeRange={timeRange}
           setTime={setTime}
-          setHighlightedSpecies={setHighlightedSpecies}
-          activeSpeciesList={activeSpeciesList}
-          setActiveSpeciesList={setActiveSpeciesList}
           isTimeRunning={isTimeRunning}
           setIsTimeRunning={setIsTimeRunning}
-          sameYear={sameYear}
-          setSameYear={setSameYear}
-          speed={speed}
-          setSpeed={setSpeed}
         />
       </div>
       {data.length === 0 && <div id="loading">Please wait for data to be fetched…</div>}

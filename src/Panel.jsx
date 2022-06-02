@@ -1,22 +1,8 @@
-import { speciesList } from './config'
 import BirdControls from './BirdControls'
 import TimeControl from './TimeControl'
 import Credits from './Credits'
 
-const Panel = ({
-  time,
-  timeRange,
-  setTime,
-  setHighlightedSpecies,
-  setActiveSpeciesList,
-  activeSpeciesList,
-  isTimeRunning,
-  setIsTimeRunning,
-  sameYear,
-  setSameYear,
-  speed,
-  setSpeed,
-}) => {
+const Panel = ({ time, timeRange, setTime, isTimeRunning, setIsTimeRunning }) => {
   return (
     <div id="panel">
       <h1 className="u-mobileHidden">Flying paths of some birds</h1>
@@ -26,17 +12,8 @@ const Panel = ({
         setTime={setTime}
         isTimeRunning={isTimeRunning}
         setIsTimeRunning={setIsTimeRunning}
-        sameYear={sameYear}
-        setSameYear={setSameYear}
-        speed={speed}
-        setSpeed={setSpeed}
       />
-      <BirdControls
-        speciesList={speciesList}
-        setHighlighted={setHighlightedSpecies}
-        activeSpeciesList={activeSpeciesList}
-        setActiveSpeciesList={setActiveSpeciesList}
-      />
+      <BirdControls />
       <Credits />
     </div>
   )

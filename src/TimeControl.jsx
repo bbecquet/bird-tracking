@@ -1,17 +1,11 @@
 import { format as formatDate } from 'date-fns'
+import { useSetting } from './Settings'
 import './TimeControl.css'
 
-const TimeControl = ({
-  isTimeRunning,
-  setIsTimeRunning,
-  time,
-  timeRange,
-  setTime,
-  sameYear,
-  setSameYear,
-  speed,
-  setSpeed,
-}) => {
+const TimeControl = ({ isTimeRunning, setIsTimeRunning, time, timeRange, setTime }) => {
+  const [sameYear, setSameYear] = useSetting('sameYear', false)
+  const [speed, setSpeed] = useSetting('speed')
+
   return (
     <div className="timeControl">
       <div className="time">
