@@ -5,7 +5,7 @@
   "homepage": ".",
   "dependencies": {
     "date-fns": "^2.28.0",
-    "deck.gl": "^8.7.9",
+    "deck.gl": "^8.8.11",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
     "maplibre-gl": "^2.1.9",
     "rainbow-colors": "^1.1.0",
