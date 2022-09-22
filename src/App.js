@@ -5,6 +5,7 @@ import { ANIMATION_SPEED, AUTO_PLAY } from './config'
 import { getTimeRange } from './times'
 import { usePageVisibility } from './usePageVisibility'
 import { useSetting } from './Settings'
+import { tsToDate } from './times'
 
 const App = () => {
   const [data, setData] = useState([])
@@ -80,21 +81,34 @@ const App = () => {
     }
   }, [time, timeRange, setTime])
 
-  const filteredData = useMemo(
-    () => data.filter(d => activeSpeciesList.includes(d.properties.species)),
-    [data, activeSpeciesList]
-  )
+  const transformedData = useMemo(() => {
+    const filteredData = data.filter(d => activeSpeciesList.includes(d.properties.species))
+
+    const minYear = new Date(timeRange[0] * 1000).getFullYear()
+
+    if (!sameYear || !minYear) {
+      return filteredData
+    }
+
+    return filteredData.map(feature => {
+      const times = feature.properties.times
+      // transform times so they are all considered in the same year
+      const timeStampShift =
+        (new Date(tsToDate(times[0]).getFullYear(), 0, 1) - new Date(minYear, 0, 1)) / 1000
+      return {
+        ...feature,
+        properties: {
+          ...feature.properties,
+          times: times.map(t => t - timeStampShift),
+        },
+      }
+    })
+  }, [data, activeSpeciesList, sameYear, timeRange])
 
   return (
     <>
       <div id="layout">
-        <MapView
-          time={time}
-          minTime={timeRange[0]}
-          sameYear={sameYear}
-          data={filteredData}
-          highlightedSpecies={highlightedSpecies}
-        />
+        <MapView time={time} data={transformedData} highlightedSpecies={highlightedSpecies} />
         <Panel
           time={time}
           timeRange={timeRange}

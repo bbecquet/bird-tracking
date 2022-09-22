@@ -7,7 +7,6 @@ import { ANIMATION_SPEED, speciesConfig } from './config'
 import { TripsLayer } from '@deck.gl/geo-layers'
 import GL from '@luma.gl/constants'
 import { WebMercatorViewport } from '@deck.gl/core'
-import { tsToDate } from './times'
 
 import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker'
 maplibregl.workerClass = maplibreglWorker
@@ -20,11 +19,10 @@ const INITIAL_VIEW = {
   maxZoom: 20,
 }
 
-const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
+const MapView = ({ time, data, highlightedSpecies }) => {
   const [tripLayer, setTripLayer] = useState(undefined)
   const [initialViewState, setInitialViewState] = useState(null)
   const mapContainer = useRef(null)
-  const minYear = new Date(minTime * 1000).getFullYear()
 
   useLayoutEffect(() => {
     if (!initialViewState) {
@@ -49,17 +47,7 @@ const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
         id: 'birds',
         data,
         currentTime: time,
-        getTimestamps: d => {
-          if (!sameYear || !minYear) {
-            return d.properties.times
-          }
-          // transform times so they are all considered in the same year
-          const timeStampShift =
-            (new Date(tsToDate(d.properties.times[0]).getFullYear(), 0, 1) -
-              new Date(minYear, 0, 1)) /
-            1000
-          return d.properties.times.map(t => t - timeStampShift)
-        },
+        getTimestamps: d => d.properties.times,
         trailLength: ANIMATION_SPEED * 150,
         getColor: ({ properties }) => speciesConfig[properties.species].color,
         getPath: d => d.geometry.coordinates,
@@ -75,11 +63,10 @@ const MapView = ({ time, minTime, sameYear, data, highlightedSpecies }) => {
         },
         updateTriggers: {
           getWidth: highlightedSpecies,
-          getTimestamps: sameYear,
         },
       })
     )
-  }, [data, time, sameYear, minYear, highlightedSpecies])
+  }, [data, time, highlightedSpecies])
 
   return (
     <div id="map" ref={mapContainer}>
