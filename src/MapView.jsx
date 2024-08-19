@@ -1,15 +1,9 @@
 import { useEffect, useLayoutEffect, useState, useRef } from 'react'
 import DeckGL from '@deck.gl/react'
-import Map from 'react-map-gl'
-// eslint-disable-next-line import/no-webpack-loader-syntax
-import maplibregl from '!maplibre-gl'
+import Map from 'react-map-gl/maplibre'
 import { ANIMATION_SPEED, speciesConfig } from './config'
 import { TripsLayer } from '@deck.gl/geo-layers'
-import GL from '@luma.gl/constants'
 import { WebMercatorViewport } from '@deck.gl/core'
-
-import maplibreglWorker from 'maplibre-gl/dist/maplibre-gl-csp-worker'
-maplibregl.workerClass = maplibreglWorker
 
 const INITIAL_VIEW = {
   longitude: 32.5,
@@ -34,7 +28,7 @@ const MapView = ({ time, data, highlightedSpecies }) => {
         [
           [-19, -37],
           [54, 65],
-        ]
+        ],
         // { padding: 0, offset: [-400, 0] }  // Bug in deck.gl? Doesn't work at all and crashes on many cases
       )
       setInitialViewState({ ...INITIAL_VIEW, latitude, longitude, zoom })
@@ -57,14 +51,9 @@ const MapView = ({ time, data, highlightedSpecies }) => {
         opacity: 0.75,
         widthUnits: 'pixels',
         shadowEnabled: false,
-        parameters: {
-          blend: true,
-          blendFunc: [GL.SRC_ALPHA, GL.CONSTANT_ALPHA],
-        },
-        updateTriggers: {
-          getWidth: highlightedSpecies,
-        },
-      })
+        parameters: { blend: true },
+        updateTriggers: { getWidth: highlightedSpecies },
+      }),
     )
   }, [data, time, highlightedSpecies])
 
@@ -77,7 +66,6 @@ const MapView = ({ time, data, highlightedSpecies }) => {
           layers={tripLayer ? [tripLayer] : []}
         >
           <Map
-            mapLib={maplibregl}
             attributionControl={false}
             mapStyle="https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json"
           />
