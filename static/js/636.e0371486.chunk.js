@@ -1,2 +1,0 @@
-(self.webpackChunkbird_tracking_map=self.webpackChunkbird_tracking_map||[]).push([[636],{636:(a,e)=>{e.printMsg=function(){console.log("This is a message from the demo package")}}}]);
-//# sourceMappingURL=636.e0371486.chunk.js.map
