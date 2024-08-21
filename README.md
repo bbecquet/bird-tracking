@@ -43,9 +43,9 @@ The hard part (drawing and animating so many things) is handled by [Deck.gl's `T
 
 Source data is coming from the ["GPS tracking of Storks, Cranes and birds of prey, breeding in Northern and Eastern Europe" dataset](https://www.gbif.org/dataset/712dba38-74cc-4704-87c0-63d1bf8484bc) from the [Global Biodiversity Information Facility](https://www.gbif.org).
 
-After some manual clean-up and simplification in QGIS, I use a Python script to heavily aggregate and transform raw CSV data into a [GeoJSON `FeatureCollection`](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3) that is more fitted for JS manipulation. 
+After some manual clean-up and simplification in QGIS, I use a Python script to heavily aggregate and transform raw CSV data into a [GeoJSON `FeatureCollection`](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3) that is more fitted for JS manipulation. This script is in the `data` directory, as well as the latest CSV data I used.
 
-If you want to adapt the app to data formatted differently, you just have to ensure the final GeoJSON format is right. Each GeoJSON `Feature` in the `FeatureCollection` should be:
+If you want to adapt the app to data formatted differently, you probably won't need this script. You just have to ensure the final GeoJSON format is right. Each GeoJSON `Feature` in the `FeatureCollection` should be:
 
 ```
 {
