@@ -2,23 +2,31 @@ import csv
 import json
 import datetime
 import dateutil.parser
-
+import sys
+import traceback
 
 def parseFile(file):
-    with open(file, newline="") as csvfile:
-        reader = csv.DictReader(csvfile, delimiter=",", quotechar='"')
-        rows = [
-            {
-                "id": int(row["occurrenceID"]),
-                "species": row["species"],
-                "coord": [float(row["longitude"]), float(row["latitude"])],
-                "time": row["date"],
-            }
-            for row in reader
-            if row["longitude"] and row["latitude"]
-        ]
-        return rows
-
+    try:
+        with open(file, newline="") as csvfile:
+            reader = csv.DictReader(csvfile, delimiter=",", quotechar='"')
+            rows = [
+                {
+                    "id": int(row["occurrenceID"]),
+                    "species": row["species"],
+                    "coord": [float(row["longitude"]), float(row["latitude"])],
+                    "time": row["date"],
+                }
+                for row in reader
+                if row["longitude"] and row["latitude"]
+            ]
+            return rows
+    except FileNotFoundError:
+        print('Error: missing file ' + file)
+        sys.exit(1)
+    except (csv.Error, KeyError):
+        print('Error: CSV parsing failed')
+        print(traceback.format_exc())
+        sys.exit(1)
 
 # group by consecutive concurrenceIDs of the same species
 def groupByBird(observations):
@@ -76,7 +84,11 @@ def toGeoJson(groups):
             toFeature(g) for g in groups]}
     )
 
+if (len(sys.argv) < 2):
+    print('Missing argument: CSV input file path')
+    sys.exit(1)
+csvFile = sys.argv[1]
 
-birds = groupByBird(parseFile("clean_bird_migration.csv"))
+birds = groupByBird(parseFile(csvFile))
 
 print(toGeoJson(birds))
