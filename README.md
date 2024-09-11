@@ -45,10 +45,10 @@ Source data is coming from the ["GPS tracking of Storks, Cranes and birds of pre
 
 After some manual clean-up and simplification in QGIS, I use a Python script to heavily aggregate and transform raw CSV data into a [GeoJSON `FeatureCollection`](https://datatracker.ietf.org/doc/html/rfc7946#section-3.3) that is more fitted for JS manipulation. This script is in the `data` directory, as well as the latest CSV data I used. It takes the CSV file path as argument and prints the resulting GeoJSON on standard output.
 
-So, to overwrite the current GeoJSON file (`public/birds.geosjon`), from the `data` directory:
+So, to overwrite the current GeoJSON file (`public/birds.geosjon`), from the root of the probject:
 
 ```shell
-python transform_birds.py ./clean_bird_migration.csv > ../public/birds.geojson
+python data/transform_birds.py data/clean_bird_migration.csv > public/birds.geojson
 ```
 
 If you want to adapt the app to data formatted differently, you probably won't need this script. You just have to ensure the final GeoJSON format is right. Each GeoJSON `Feature` in the `FeatureCollection` should be:
